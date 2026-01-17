@@ -7,7 +7,7 @@
 #define TFT_SCLK 4
 #define TFT_CS   24
 #define TFT_DC   2
-#define TFT_RST  3
+#define TFT_RST  -1
 
 // SPI settings – SAFE for ESP32-C5 + ILI9341
 #define SPI_FREQUENCY        20000000
