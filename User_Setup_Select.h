@@ -19,7 +19,7 @@
 
 // Only ONE line below should be uncommented.  Add extra lines and files as needed.
 
-//#include <User_Setup.h>           // Default setup is root library folder
+#include <User_Setup.h>           // Default setup is root library folder
 
 //#include <User_Setup_og_marauder.h>
 //#include <User_Setup_id_receiver.h>
