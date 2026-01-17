@@ -210,6 +210,22 @@ jobs:
               sed -i 's/compiler.c.elf.extra_flags=/compiler.c.elf.extra_flags=-Wl,-zmuldefs /' "$i"
             done
           fi
+
+      - name: Force single TFT_eSPI install
+        run: |
+              rm -rf $HOME/Arduino/libraries/TFT_eSPI
+              mkdir -p $HOME/Arduino/libraries
+              cp -r CustomTFT_eSPI $HOME/Arduino/libraries/TFT_eSPI
+
+      - name: Force User_Setup.h usage
+        run: |
+          cp User_Setup.h $HOME/Arduino/libraries/TFT_eSPI/User_Setup.h
+
+          sed -i 's|^//\(#include <User_Setup.h>\)|\1|' \
+          $HOME/Arduino/libraries/TFT_eSPI/User_Setup_Select.h
+
+          echo "===== CONFIRMING CONFIG ====="
+          grep "ILI9341" $HOME/Arduino/libraries/TFT_eSPI/User_Setup.h || true
           
      
       - name: Build Marauder for ${{ matrix.board.name }}
@@ -245,6 +261,10 @@ jobs:
           name: ${{ env.artifact_name }}
           path: ${{ env.artifact_path }}
           retention-days: 5
+          
+      
+
+
 
   post_compile_steps:
     name: Create Release
